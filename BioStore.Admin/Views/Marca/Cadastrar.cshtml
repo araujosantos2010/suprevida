@@ -1,0 +1,92 @@
+﻿
+@model MarcaViewModel
+@{
+    ViewData["pagina-pai-breadcrumb"] = "Marca";
+    ViewData["pagina-breadcrumb"] = "Cadastrar";
+}
+@section Styles{
+    <link href="~/vendors/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="container">
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>Marca</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <h5 class="hk-sec-title">Criando marca</h5>
+                <p class="mb-40">AS marca criada poderá ser associada aos produtos cadastrados.</p>
+                <div class="row">
+                    <div class="col-sm">
+                        @{ 
+                            var action = Model != null ? "Atualizar" : "Cadastrar";
+
+                            var logo = "";
+                            if (Model != null)
+                            {
+                                if(Model.MarcaId != default(Guid))
+                                {
+                                    logo = $@"/marca/imagens/{Model.MarcaId}.png";
+                                }
+                            }
+                        }
+                        <form class="needs-validation" enctype="multipart/form-data" asp-action="@action" asp-controller="Marca" novalidate>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-10">
+                                    <input type="file" asp-for="file"
+                                           data-max-file-size="20k"
+                                           data-allowed-file-extensions="jpg png jpeg gif"
+                                           data-max-width="200"
+                                           data-default-file="@logo"
+                                           class="dropify" />
+                                    <input type="hidden" asp-for="MarcaId" />
+                                </div>
+                                <div class="col-md-8 form-row">
+                                    <div class="col-md-12 mb-10">
+                                        <label asp-for="Nome">Marca</label>
+                                        <input type="text" class="form-control" asp-for="Nome" placeholder="Marca" required>                                        
+                                        <div class="invalid-feedback">
+                                            O preenchimento da marca é obrigatório.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-10">
+                                        <label asp-for="Descricao">Descrição</label>
+                                        <textarea class="form-control mt-10" asp-for="Descricao" rows="2" placeholder="Breve descrição"></textarea>
+                                    </div>
+                                    <div class="col-md-6 mb-10">
+                                        <div class="custom-control custom-radio radio-green">
+                                            <input type="radio" asp-for="Status" value="@EMarcaStatusViewModel.Ativo" id="@EMarcaStatusViewModel.Ativo" class="custom-control-input" checked="checked" />
+                                            <label class="custom-control-label" for="@EMarcaStatusViewModel.Ativo">Ativo</label>
+                                        </div>
+                                        <div class="custom-control custom-radio radio-red">
+                                            <input type="radio" asp-for="Status" value="@EMarcaStatusViewModel.Inativo" id="@EMarcaStatusViewModel.Inativo" class="custom-control-input" />
+                                            <label class="custom-control-label" for="@EMarcaStatusViewModel.Inativo">Inativo</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-10">
+                                        <div class="custom-control custom-checkbox checkbox-primary">
+                                            <input type="checkbox" asp-for="Destaque" class="custom-control-input">
+                                            <label class="custom-control-label" asp-for="Destaque">Destaque</label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Cadastrar</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/vendors/dropify/dist/js/dropify.min.js"></script>
+    <script src="~/marca/js/cadastrar.js"></script>
+    <script src="~/dist/js/validation-data.js"></script>
+}

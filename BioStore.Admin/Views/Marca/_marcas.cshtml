@@ -1,0 +1,38 @@
+﻿@using BioStore.Admin.Helper;
+@model BioStore.Admin.Queries.MarcaResult
+
+<div id="tgAjax">
+    <table class="table table-primary table-bordered mb-15">
+        <thead class="thead-primary">
+            <tr>
+                <th>Nome</th>
+                <th>Destaque</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model?.Marcas)
+            {
+                <tr>
+                    <td style="width:60%;">@item.Nome</td>
+                    <td style="width:10%;">@item.Destaque </td>
+                    <td style="width:10%;" class="text-center"><span id="@item.MarcaId" class="@GetClassStatus(item.Status)">@item.Status.Description()</span> </td>
+                    <td style="width:20%;" class="text-center">
+                        <a asp-route-id="@item.MarcaId" asp-action="Editar" asp-controller="Marca" style="font-size:22px; color: #a2a3a5;" class="mr-25" data-toggle="tooltip" data-original-title="Editar"> <i class="zmdi zmdi-edit"></i> </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <vc:paginacao model="@Model.Marcas" action="Index" controller="Marca" tag="tgAjax" />
+
+    @functions {
+    string GetClassStatus(EMarcaStatusViewModel status)
+    {
+
+        return status == EMarcaStatusViewModel.Ativo ? "success" : "danger";
+    }
+    }
+</div>

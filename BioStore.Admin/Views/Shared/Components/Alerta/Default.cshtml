@@ -1,0 +1,54 @@
+﻿@using BioStore.Admin.Helper
+@using Newtonsoft.Json;
+@model string
+@{
+
+    var model = default(BioResult);
+    if (!string.IsNullOrEmpty(Model))
+    {
+        model = JsonConvert.DeserializeObject<BioResult>(Model);
+        var mensagem = "";
+        if (model.Success)
+        {
+            mensagem = model.Message;
+            if (model.ExibirMensagem)
+            {
+                <script type="text/javascript">
+                @{
+                    @: util.Mensagem("success", "@Html.Raw(mensagem)");
+                }
+                </script>
+            }
+        }
+        else
+        {
+            var erros = JsonConvert.DeserializeObject<List<NotificationViewModel>>(model.Data.ToString());
+
+            if (erros.Count > 1)
+            {
+                foreach (var item in erros)
+                {
+                    mensagem += $"<br>{item.Message}";
+                }
+            }
+            else
+            {
+                mensagem = erros[0].Message;
+            }
+
+
+            <script type="text/javascript">
+                @{
+                    var tipo = model.TipoMensagem.Description();
+
+                    @: util.Mensagem("@Html.Raw(tipo)", "@Html.Raw(mensagem)");
+                }
+            </script>
+        }
+
+    }
+}
+
+
+
+

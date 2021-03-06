@@ -1,0 +1,38 @@
+﻿.ui-corner-all {
+    -moz-border-radius: 4px 4px 4px 4px;
+}
+
+.ui-widget-content {
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    background-color: var(--cor-principal);     
+}
+
+.ui-widget {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 15px;
+}
+
+.ui-menu {
+    display: block;
+    float: left;
+    list-style: none outside none;
+    margin: 0;
+    padding: 2px;
+}
+
+.ui-autocomplete {
+    cursor: pointer;
+    position: absolute;
+}
+
+.ui-menu .ui-menu-item {
+    clear: left;
+    float: left;
+    margin: 0;
+    padding: 5px;
+    width: 100%;
+}
+
+   
+

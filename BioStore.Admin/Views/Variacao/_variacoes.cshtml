@@ -1,0 +1,35 @@
+﻿<div class="table-wrap mb-20">
+    <div class="table-responsive">
+        <table class="table table-primary table-bordered mb-15">
+            <thead class="thead-primary">
+                <tr>
+                    <th>Nome</th>
+                    <th class="text-center">Observação</th>
+
+                    <th class="text-center">Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.Variacoes != null)
+                {
+
+                    foreach (var item in ViewBag.Variacoes)
+                    {
+                        <tr>
+                            <td style="width:60%;">@item.Nome</td>
+                            <td style="width:10%;"><span class="badge badge-info badge-pill mt-15 mr-10">@item.ToString()</span> </td>
+                            <td style="width:20%;" class="text-center">
+                                <a id="item-@item.VariacaoId" asp-route-id="@item.VariacaoId" class="hidden" asp-route-gradeId="@item.GradeId" asp-action="Excluir" asp-controller="Variacao" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-complete="Excluido" data-ajax-update="#dvVariacaoAjax" />
+                                <a href="javascript:void(0);" onclick="confirmar('@item.VariacaoId')" style="font-size:22px; color: #a2a3a5;" data-toggle="tooltip" data-original-title="Editar"> <i class="zmdi zmdi-delete"></i> </a>
+
+                            </td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

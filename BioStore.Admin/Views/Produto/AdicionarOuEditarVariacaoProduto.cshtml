@@ -1,0 +1,25 @@
+﻿@model VariacaoViewModel
+@{
+    ViewData["Title"] = "AdicionarOuEditarVariacaoProduto";
+    Layout = null;
+}
+
+<form asp-action="AdicionarOuEditarVariacaoProduto" asp-route-VariacaoId="@Model.VariacaoId" onsubmit="return Produto.jQueryAjaxPost(this);">
+    <div class="form-group">
+        <label for="grade">Tipo</label>
+        <select class="form-control custom-select" asp-for="Grade.GradeId" asp-items="ViewBag.Grades"></select>
+        <input type="hidden" asp-for="Grade.Nome" />
+    </div>
+    <div class="form-group">
+        <label for="variacao">Variação</label>
+        <select class="form-control custom-select" asp-for="VariacaoId" asp-items="ViewBag.Grades"></select>
+        <input type="hidden" asp-for="Nome" id="variacaoNome" />
+    </div>
+    <button type="submit" class="btn btn-primary">Adicionar</button>
+</form>
+
+@section Scripts{
+    <script src="~/vendors/dropify/dist/js/dropify.min.js"></script>
+    <script src="~/produto/js/cadastrar.js"></script>
+    <script src="~/dist/js/validation-data.js"></script>
+}

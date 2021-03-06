@@ -1,0 +1,262 @@
+﻿
+@model ProdutoViewModel
+@{
+    ViewData["pagina-pai-breadcrumb"] = "Marca";
+    ViewData["pagina-breadcrumb"] = "Cadastrar";
+    var action = Model != null ? "Atualizar" : "Cadastrar";
+    var produto = "";
+    var produto1 = "";
+    var produto2 = "";
+    var produto3 = "";
+}
+@section Styles{
+    <link href="~/vendors/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css" />   
+    <style>
+        label.myErrorClass {
+            color: red;
+            font-size: 11px;
+            /*    font-style: italic;*/
+            display: block;
+        }
+    </style>
+}
+
+<div class="container">
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>Produto</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <form class="needs-validation" enctype="multipart/form-data" asp-action="Cadastrar" asp-controller="Produto" id="tetet">
+                <section class="hk-sec-wrapper">
+                    <h5 class="hk-sec-title">Informações Gerais</h5>
+                    <div class="row">
+                        <div class="col-sm">
+                            @{
+
+                                if (Model != null)
+                                {
+                                    if (Model.ProdutoId != default(Guid))
+                                    {
+                                        produto = $@"/produto/imagens/{Model.ProdutoId}.png";
+                                        produto1 = $@"/produto/imagens/{Model.ProdutoId}.png";
+                                        produto2 = $@"/produto/imagens/{Model.ProdutoId}.png";
+                                        produto3 = $@"/produto/imagens/{Model.ProdutoId}.png";
+                                    }
+                                }
+                            }
+
+                            <div class="form-row col-md-8 mb-10">
+                                <div class="col-md-3 mb-10">
+                                    <input type="file" asp-for="file"
+                                           data-max-file-size="20k"
+                                           data-allowed-file-extensions="jpg png jpeg gif"
+                                           data-max-width="200"
+                                           data-default-file="@produto"
+                                           class="dropify" />
+                                </div>
+                                <div class="col-md-3 mb-10">
+                                    <input type="file" asp-for="file1"
+                                           data-max-file-size="20k"
+                                           data-allowed-file-extensions="jpg png jpeg gif"
+                                           data-max-width="200"
+                                           data-default-file="@produto1"
+                                           class="dropify" />
+                                </div>
+                                <div class="col-md-3 mb-10">
+                                    <input type="file" asp-for="file2"
+                                           data-max-file-size="20k"
+                                           data-allowed-file-extensions="jpg png jpeg gif"
+                                           data-max-width="200"
+                                           data-default-file="@produto2"
+                                           class="dropify" />
+                                </div>
+                                <div class="col-md-3 mb-10">
+                                    <input type="file" asp-for="file3"
+                                           data-max-file-size="20k"
+                                           data-allowed-file-extensions="jpg png jpeg gif"
+                                           data-max-width="200"
+                                           data-default-file="@produto3"
+                                           class="dropify" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-8 form-row">
+                                <div class="col-md-12 mb-10">
+                                    <label asp-for="UrlProdutoYouTube">URL YouTube</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-secondary text-white">https://</span>
+                                        </div>
+                                        <input type="text" class="form-control" asp-for="UrlProdutoYouTube" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-10">
+                                    <label asp-for="Nome">Nome</label>
+                                    <input type="text" class="form-control" asp-for="Nome" placeholder="Nome" required />
+                                    <span asp-validation-for="Nome" class="invalid-feedback"></span>
+                                </div>
+                                <div class="col-md-6 mb-10 has">
+                                    <label asp-for="MarcaId">Marca</label>
+                                    <select class="form-control custom-select" asp-for="MarcaId" asp-items="ViewBag.Marcas" required></select>
+                                    <span asp-validation-for="MarcaId" class="invalid-feedback"></span>
+
+                                </div>
+                                <div class="col-md-12 mb-10">
+                                    <label asp-for="CategoriaId">Categoria</label>
+                                    <select class="form-control select2" asp-for="CategoriaId" asp-items="ViewBag.TodasCategorias"></select>
+                                    <span asp-validation-for="CategoriaId" class="invalid-feedback"></span>
+                                </div>
+                                <div class="col-md-6 mb-10">
+                                    <label asp-for="Sku">SKU</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" asp-for="Sku" required />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" id="btnGerarCodigo" type="button">Gerar Código</button>
+                                        </div>
+                                        <span asp-validation-for="Sku" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-10">
+                                    <label asp-for="PrecoDeCusto">Preço de Custo</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-secondary text-white">R$</span>
+                                        </div>
+                                        <input type="text" class="form-control" asp-for="PrecoDeCusto" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-10">
+                                    <label asp-for="PrecoDeVenda">Preço de Venda</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-secondary text-white">R$</span>
+                                        </div>
+                                        <input type="text" class="form-control" asp-for="PrecoDeVenda" required />
+                                        <span asp-validation-for="PrecoDeVenda" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-10">
+                                    <label asp-for="PrecoPromocional">Preço de Promocional</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-secondary text-white">R$</span>
+                                        </div>
+                                        <input type="text" class="form-control" asp-for="PrecoPromocional" />
+                                        <span asp-validation-for="PrecoPromocional" class="text-indigo"></span>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 mb-10">
+                                    <label asp-for="Descricao">Descrição</label>
+                                    <textarea class="form-control mt-10" asp-for="Descricao" rows="3" placeholder="Descrição" required></textarea>
+                                    <span asp-validation-for="Descricao" class="invalid-feedback"></span>
+                                </div>                   
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="hk-sec-wrapper">
+                    <h5 class="hk-sec-title">Otimização para buscadores (SEO)</h5>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="col-md-8 form-row">
+                                <div class="col-md-12 mb-10">
+                                    <label asp-for="TagTitle">Tag Title</label>
+                                    <input type="text" class="form-control" asp-for="TagTitle" placeholder="Tag">
+                                </div>
+
+                                <div class="col-md-12 mb-10">
+                                    <label asp-for="MetaTagDescription">Meta Tag Description</label>
+                                    <textarea class="form-control mt-10" asp-for="MetaTagDescription" rows="3" placeholder="Tag Description"></textarea>
+                                </div>
+                                <div class="col-md-12 mb-10">
+                                    <label asp-for="MetaTagKeywords">Meta Tag Keywords</label>
+                                    <input type="text" class="form-control" asp-for="MetaTagKeywords" placeholder="Tag Keywords">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="hk-sec-wrapper">
+                    <h5 class="hk-sec-title">Peso e dimensões </h5>
+                    <p class="mb-40">Os valores devem ser preenchidos considerando o pacote que será enviado, ou seja, embalagem com produto.</p>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="col-md-8 form-row">
+                                <div class="col-md-6 mb-10">
+                                    <label asp-for="Peso">Peso </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" asp-for="Peso" required />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-secondary text-white">KG</span>
+                                        </div>
+                                        <span asp-validation-for="Peso" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-10">
+                                    <label asp-for="Altura">Altura</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" asp-for="Altura" required />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-secondary text-white">CM</span>
+                                        </div>
+                                        <span asp-validation-for="Altura" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-10">
+                                    <label asp-for="Largura">Largura</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" asp-for="Largura" required />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-secondary text-white">CM</span>
+                                        </div>
+                                        <span asp-validation-for="Largura" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-10">
+                                    <label asp-for="Profundidade">Profundidade </label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" asp-for="Profundidade" required />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text bg-secondary text-white">CM</span>
+                                        </div>
+                                        <span asp-validation-for="Profundidade" class="invalid-feedback"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="form-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/vendors/dropify/dist/js/dropify.min.js"></script>
+    <script src="~/produto/js/cadastrar.js"></script>   
+    <script src="~/dist/js/validation-data.js"></script>
+}

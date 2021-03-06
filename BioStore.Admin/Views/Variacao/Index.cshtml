@@ -1,0 +1,107 @@
+﻿
+@model VariacaoViewModel
+@{
+    ViewData["pagina-pai-breadcrumb"] = "Categoria";
+    ViewData["pagina-breadcrumb"] = "Cadastrar";
+}
+
+
+<div class="container">
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>Categoria</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <h5 class="hk-sec-title">Criando categoria</h5>
+                <p class="mb-40">A categoria criada poderá ser associada aos produtos cadastrados.</p>
+                <div class="row">
+                    <div class="col-sm">
+                        @{
+                            var action = Model != null ? "Atualizar" : "Cadastrar";
+
+                        }
+
+                        <form asp-action="Cadastrar" asp-controller="Variacao" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace" data-ajax-complete="Adicionado" data-ajax-update="#dvVariacaoAjax" class="needs-validation">
+                            <div class="form-row">
+                                <div class="col-md-10 form-row">
+                                    <div class="col-md-12 mb-10">
+                                        <nav class="hk-breadcrumb" aria-label="breadcrumb">
+                                            <ol class="breadcrumb breadcrumb-light bg-transparent">
+                                                <li class="breadcrumb-item"><a asp-action="Cadastrar" asp-controller="Grade">Grade</a></li>
+                                                <li class="breadcrumb-item active" aria-current="page"><a asp-route-id="Grade.GradeId" asp-action="Editar" asp-controller="Grade">@Model.Grade.Nome</a></li>
+                                            </ol>
+                                        </nav>
+                                        <div class="input-group">                                            
+                                            <input type="hidden" asp-for="Grade.GradeId" />
+                                            <input type="text" asp-for="Nome" class="form-control" placeholder="Digite a variação" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                            <button class="btn btn-primary" type="submit">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-10">
+                                        <div class="col-sm">
+                                            <h6 class="mb-20 mt-30">Variações da grade</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-10" id="dvVariacaoAjax">
+                                        <partial name="_variacoes" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a class="btn btn-indigo" asp-action="Index" asp-controller="Categoria">Voltar</a>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlConfirmar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lae">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Realmente deseja excluir este item?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button"  class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnConfirmar"  class="btn btn-primary">Confirmar</button>
+                <input type="hidden" id="hdnConfirmar" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {           
+
+            $("#btnConfirmar").click(function () {                
+                $("#item-" + $("#hdnConfirmar").val()).click();
+                $("#mdlConfirmar").modal("hide");
+            });
+        });
+        confirmar = function (idForm) {
+            $("#hdnConfirmar").val(idForm);
+            $("#mdlConfirmar").modal("show");
+        };
+
+        Adicionado = function () {
+            util.Mensagem("success", "Variação adicionada com sucesso.");
+            $("#Nome").val("");
+        };
+
+        Excluido = function () {
+            util.Mensagem("success", "Variação excluída com sucesso.");
+        };
+    </script>
+}

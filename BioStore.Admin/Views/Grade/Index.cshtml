@@ -1,0 +1,56 @@
+﻿@model BioStore.Admin.Queries.GradeResult
+@{
+    ViewData["Title"] = "Grades";
+    ViewData["pagina-pai-breadcrumb"] = "Grade";
+    ViewData["pagina-breadcrumb"] = "Listar";
+}
+
+
+<div class="container">
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>Grade</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <a asp-action="Cadastrar" asp-controller="Categoria" class="btn btn-gradient-secondary btn-wth-icon float-right mb-10 btn-lg">
+                            <span class="icon-label">
+                                <span class="feather-icon">
+                                    <i data-feather="file-plus"></i>
+                                </span>
+                            </span><span class="btn-text">Nova</span>
+                        </a>
+
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-wrap mb-20">
+                            <div class="table-responsive" id="nameListContainer">
+
+
+
+                                @if (Model != null)
+                                {
+                                   
+                                    <partial name="_grades" model="Model" />                                        
+                                    
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/marca/js/indext.js"></script>
+}

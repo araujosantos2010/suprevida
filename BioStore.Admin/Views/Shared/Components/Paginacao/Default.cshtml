@@ -1,0 +1,22 @@
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Common;
+@model dynamic
+
+@{
+    var action = (string)ViewBag.Action;
+    var controller = (string)ViewBag.Controller;
+    var tagAjax = (string)ViewBag.TagAjax;
+
+ }
+@Html.PagedListPager((IPagedList)Model, page =>
+                         Url.Action(action, controller, new { page = page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+                         new PagedListRenderOptions {
+                             LiElementClasses = new string[] { "page-item"},
+                             UlElementClasses = new string[] { "pagination", "justify-content-center", "custom-pagination", "pagination-rounded" },
+                             PageClasses = new string[] { "btn btn-outline-secondary page-link" },
+                             DisplayLinkToNextPage = X.PagedList.Web.Common.PagedListDisplayMode.Always,
+                             DisplayLinkToPreviousPage = X.PagedList.Web.Common.PagedListDisplayMode.Always,
+                             DisplayLinkToLastPage = X.PagedList.Web.Common.PagedListDisplayMode.Always,
+                             DisplayLinkToFirstPage = X.PagedList.Web.Common.PagedListDisplayMode.Always
+                         }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = tagAjax }))

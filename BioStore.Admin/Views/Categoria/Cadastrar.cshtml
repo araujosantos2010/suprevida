@@ -1,0 +1,84 @@
+﻿
+@model CategoriaViewModel
+@{
+    ViewData["pagina-pai-breadcrumb"] = "Categoria";
+    ViewData["pagina-breadcrumb"] = "Cadastrar";
+}
+
+
+<div class="container">
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>Categoria</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <h5 class="hk-sec-title">Criando categoria</h5>
+                <p class="mb-40">A categoria criada poderá ser associada aos produtos cadastrados.</p>
+                <div class="row">
+                    <div class="col-sm">
+                        @{ 
+                            var action = Model != null ? "Atualizar" : "Cadastrar";
+                           
+                        }
+                        <form class="needs-validation" asp-action="@action" asp-controller="Categoria" novalidate>
+                            <div class="form-row">
+                                <div class="col-md-8 form-row">
+                                    @*<div class="col-md-12 mb-10">
+                                        <label>Categoria Pai</label>
+                                        <input type="text" class="form-control" ID="txtCategoria" required />
+                                        <input type="hidden" asp-for="CategoriaPaiId" required />
+                                    </div>*@
+
+                                    <div class="col-md-12 mb-10">
+                                        <label>Categoria Pai</label>
+                                        <select class="form-control select2" asp-for="CategoriaPai.CategoriaId" asp-items="ViewBag.TodasCategorias"></select>                                        
+                                    </div>
+                                    <div class="col-md-12 mb-10">
+                                        <label asp-for="Nome">Nome</label>
+                                        <input type="text" class="form-control" asp-for="Nome" placeholder="Nome da categoria" required>
+                                        <input type="hidden" asp-for="CategoriaId" />
+                                        <div class="invalid-feedback">
+                                            O preenchimento da categoria é obrigatório.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-10">
+                                        <label asp-for="Descricao">Descrição</label>
+                                        <textarea class="form-control mt-10" asp-for="Descricao" rows="2" placeholder="Breve descrição"></textarea>
+                                    </div>
+                                    <div class="col-md-6 mb-10">
+                                        <div class="custom-control custom-radio radio-green">
+                                            <input type="radio" asp-for="Status" value="@ECategoriaStatusViewModel.Ativo" id="@ECategoriaStatusViewModel.Ativo" class="custom-control-input" checked="checked" />
+                                            <label class="custom-control-label" for="@ECategoriaStatusViewModel.Ativo">Ativo</label>
+                                        </div>
+                                        <div class="custom-control custom-radio radio-red">
+                                            <input type="radio" asp-for="Status" value="@ECategoriaStatusViewModel.Inativo" id="@ECategoriaStatusViewModel.Inativo" class="custom-control-input" />
+                                            <label class="custom-control-label" for="@ECategoriaStatusViewModel.Inativo">Inativo</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-10">
+                                        <div class="custom-control custom-checkbox checkbox-primary">
+                                            <input type="checkbox" asp-for="Destaque" class="custom-control-input">
+                                            <label class="custom-control-label" asp-for="Destaque">Destaque</label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Cadastrar</button>
+                            <a class="btn btn-indigo" asp-action="Index" asp-controller="Categoria">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{    
+    <script src="~/categoria/js/cadastrar.js"></script>
+    <script src="~/dist/js/validation-data.js"></script>
+}

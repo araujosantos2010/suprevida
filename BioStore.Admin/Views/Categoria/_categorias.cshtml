@@ -1,0 +1,33 @@
+﻿@using BioStore.Admin.Helper;
+@model BioStore.Admin.Queries.CategoriaResult
+
+<div id="Ajaxtag">
+    <table class="table table-primary table-bordered mb-15">
+        <thead class="thead-primary">
+            <tr>
+                <th>Nome</th>
+                <th>Destaque</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Categorias)
+            {
+                var status = @item.Status == ECategoriaStatusViewModel.Ativo ? "success" : "danger";
+                var icon = item.Status == ECategoriaStatusViewModel.Ativo ? "zmdi zmdi-eye-off" : "zmdi zmdi-eye";
+
+                <tr>
+                    <td style="width:60%;">@item.Nome</td>
+                    <td style="width:10%;">@item.Destaque </td>
+                    <td style="width:10%;" class="text-center"><span id="@item.CategoriaId" class="badge badge-@status">@item.Status.Description()</span> </td>
+                    <td style="width:20%;" class="text-center">
+                        <a asp-route-id="@item.CategoriaId" asp-action="Editar" asp-controller="Categoria" style="font-size:22px; color: #a2a3a5;" class="mr-25" data-toggle="tooltip" data-original-title="Editar"> <i class="zmdi zmdi-edit"></i> </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<vc:paginacao model="@Model.Categorias" action="Index" controller="Categoria" tag="Ajaxtag" />
+

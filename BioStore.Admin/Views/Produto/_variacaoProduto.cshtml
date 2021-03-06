@@ -1,0 +1,42 @@
+﻿@model List<VariacaoViewModel>
+<section class="hk-sec-wrapper sectionVariacao">
+    <h5 class="hk-sec-title">Table Color Variations</h5>
+    <p class="mb-40">Use classes <code>( .active, .success, .info, .warning, .danger )</code> to color table rows or individual cells.</p>
+    <div class="row">
+        <div class="col-sm">
+            <div class="table-wrap mb-20">
+                <div class="table-responsive">
+                    <table class="table table-primary table-bordered mb-0" id="tbVariacao">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>Grade</th>
+                                <th>Variacao</th>
+                                <th> <a onclick="Produto.showInPopup('@Url.Action("AdicionarOuEditarVariacaoProduto","Produto",null,Context.Request.Scheme)','New Transaction')" class="btn btn-success text-white"><i class="fas fa-random"></i> New Transaction</a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model?.Count; i++)
+                            {
+                               
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="Variacoes[@i].GradeId" value="@Model[i].GradeId" />
+                                    <input type="hidden" name="Variacoes[@i].Nome" value="@Model[i].Nome" />
+                                    <input type="hidden" name="Variacoes[@i].VariacaoId" value="@Model[i].VariacaoId" />                                    
+                                    @Model[i].Grade.Nome
+                                </td>
+                                <td>@Model[i].Nome</td>
+                                <td>gf</td>
+                            </tr>
+                                
+
+                            }
+
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

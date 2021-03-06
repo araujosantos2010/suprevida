@@ -1,0 +1,53 @@
+﻿
+@model GradeViewModel
+@{
+    ViewData["pagina-pai-breadcrumb"] = "Categoria";
+    ViewData["pagina-breadcrumb"] = "Cadastrar";
+}
+
+
+<div class="container">
+    <div class="hk-pg-header">
+        <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="external-link"></i></span></span>Grade</h4>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-xl-12">
+            <section class="hk-sec-wrapper">
+                <h5 class="hk-sec-title">Criando grade</h5>
+                <p class="mb-40">Poderá ser utilizado para variar produto</p>
+                <div class="row">
+                    <div class="col-sm">
+                        @{ 
+                            var action = Model != null ? "Atualizar" : "Cadastrar";
+                           
+                        }
+                        <form class="needs-validation" asp-action="@action" asp-controller="Grade">
+                            <div class="form-row">
+                                <div class="col-md-8 form-row">
+                                    <div class="col-md-12 mb-10">
+                                        <label asp-for="Nome">Nome</label>
+                                        <input type="text" class="form-control" asp-for="Nome" placeholder="Nome da grade" required>
+                                        <div class="invalid-feedback">
+                                            O preenchimento da categoria é obrigatório.
+                                        </div>
+                                        <input type="hidden" asp-for="GradeId" />
+                                    </div>                                        
+                                    </div>
+                                </div>
+                            <button class="btn btn-primary" type="submit">Cadastrar</button>
+                            <a class="btn btn-indigo" asp-action="Index" asp-controller="Categoria">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{    
+    <script src="~/categoria/js/cadastrar.js"></script>
+    <script src="~/dist/js/validation-data.js"></script>
+}

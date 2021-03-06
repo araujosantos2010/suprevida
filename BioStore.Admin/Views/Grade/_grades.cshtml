@@ -1,0 +1,30 @@
+﻿@using BioStore.Admin.Helper;
+@model BioStore.Admin.Queries.GradeResult
+<div id="Ajaxtag">
+    <table class="table table-primary table-bordered mb-15">
+        <thead class="thead-primary">
+            <tr>
+                <th>Nome</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Grades)
+            {
+
+
+                <tr>
+                    <td style="width:80%;">@item.Nome</td>
+                    <td style="width:20%;" class="text-center">
+                        <a asp-route-id="@item.GradeId" asp-action="Editar" asp-controller="Grade" style="font-size:22px; color: #a2a3a5;" class="mr-25" data-toggle="tooltip" data-original-title="Editar"> <i class="zmdi zmdi-edit"></i> </a>
+                        <a asp-route-id="@item.GradeId" asp-action="Index" asp-controller="Variacao" style="font-size:22px; color: #a2a3a5;" class="mr-25" data-toggle="tooltip" data-original-title="Variações"> <i class="zmdi zmdi-collection-text"></i> </a>
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<vc:paginacao model="@Model.Grades" action="Index" controller="Grade" tag="Ajaxtag" />
+
